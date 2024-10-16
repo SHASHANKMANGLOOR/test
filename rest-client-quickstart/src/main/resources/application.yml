@@ -1,0 +1,22 @@
+quarkus:
+  tls:
+    trust-all: true
+  rest-client:
+      extensions-api:
+        url: https://official-joke-api.appspot.com/random_joke
+
+  datasource:
+      db-kind: h2
+      username: sa
+      password: sa
+      jdbc: false  # Disable non-reactive (blocking) datasource configuration
+      reactive:true:
+        url: vertx-reactive:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE  # Corrected H2 Reactive URL format
+
+    # Enable Hibernate Reactive with Panache
+  hibernate-orm:
+      database:
+        generation: drop-and-create  # Drop and create the database schema
+      log:
+        sql: true  # Enable SQL logging
+      packages: org.acme.rest.client  # Specify the package for entity scanning
